@@ -13,7 +13,10 @@
         </section>
       </div>
       <div class="col-2">
-        adds
+        <!-- <section v-for="a in adds" class="row"> -->
+
+        <AddsCard />
+        <!-- </section> -->
       </div>
     </section>
   </div>
@@ -27,6 +30,7 @@ import Pop from "../utils/Pop";
 import { postsService } from '../services/PostsService.js'
 import PostCard from "../components/PostCard.vue";
 import PostForm from "../components/PostForm.vue";
+import AddsCard from "../components/AddsCard.vue";
 
 export default {
   setup() {
@@ -40,17 +44,19 @@ export default {
       }
     }
 
+
     onMounted(() => {
       getPosts()
     })
 
 
     return {
-      posts: computed(() => AppState.posts)
+      posts: computed(() => AppState.posts),
+      page: computed(() => AppState.page)
     }
   },
   // FIXME will need  to but this back in when v-for to card
-  components: { PostCard, PostForm }
+  components: { PostCard, PostForm, AddsCard }
 }
 </script>
 

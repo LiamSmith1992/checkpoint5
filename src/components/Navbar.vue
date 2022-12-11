@@ -16,6 +16,7 @@
           <router-link :to="{ name: 'About' }" class="btn text-success lighten-30 selectable text-uppercase">
             About
           </router-link>
+
         </li>
       </ul>
       <!-- LOGIN COMPONENT HERE -->
@@ -30,13 +31,16 @@
 
 <script>
 import { ref } from "vue";
+import { useRoute } from "vue-router";
 import { AppState } from "../AppState";
+import { Account } from "../models/Account";
 import { postsService } from "../services/PostsService";
 import { logger } from "../utils/Logger";
 import Pop from "../utils/Pop";
 import Login from './Login.vue'
 export default {
   setup() {
+    const route = useRoute()
     const search = ref("")
 
 

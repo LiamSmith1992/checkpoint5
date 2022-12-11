@@ -4,6 +4,7 @@ import Pop from "../utils/Pop"
 import { api } from "./AxiosService"
 
 
+
 class PostsService {
 
   async getPosts() {
@@ -33,6 +34,7 @@ class PostsService {
     const res = await api.get('api/profiles/' + profileId + '/posts')
     logger.log('this is posts by id', res.data)
     AppState.posts = res.data.posts
+
   }
 
   async removePost(id) {
@@ -40,6 +42,13 @@ class PostsService {
     const res = await api.delete('api/posts/' + id)
     logger.log('this is for deleting', res.data)
     AppState.posts = AppState.posts.filter(p => p.id != id)
+  }
+
+  async likePost(postId) {
+    const res = await api.post('api/posts/' + postId + '/like')
+    logger.log('liking', res.data)
+    this.getPosts(AppState.posts)
+
   }
 
 }

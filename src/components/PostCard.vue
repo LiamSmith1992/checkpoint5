@@ -24,6 +24,13 @@
         {{ post.body }}
       </div>
       <img :src="post.imgUrl" :alt="post.imgUrl" class="img-fluid post-img ">
+      <div>
+        {{ post.likes.length }}
+        <span>
+          Likes
+          <i @click="likePost(post.id)" class="selectable ">👍</i>
+        </span>
+      </div>
     </div>
   </section>
 </template>
@@ -48,6 +55,8 @@ export default {
     const route = useRoute()
 
 
+
+
     return {
       route,
       account: computed(() => AppState.account),
@@ -57,6 +66,14 @@ export default {
         } catch (error) {
           logger.error(error)
           Pop.error(error)
+        }
+      },
+      async likePost(postId) {
+        try {
+          await postsService.likePost(postId)
+        } catch (error) {
+          logger.log(error)
+          Pop.error('must be logged in', error)
         }
       }
     }

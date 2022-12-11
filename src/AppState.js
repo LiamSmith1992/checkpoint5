@@ -11,5 +11,10 @@ export const AppState = reactive({
   /** @type {import('./models/Account.js').Account} */
   activeProfile: {},
 
-  query: ''
+  query: '',
+
+
+  adds: [],
+
+  page: 1
 })

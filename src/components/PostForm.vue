@@ -37,7 +37,7 @@ export default {
         Pop.toast('Post made')
       } catch (error) {
         logger.error(error)
-        Pop.error(error)
+        Pop.error('must be logged in', error)
       }
     }
 

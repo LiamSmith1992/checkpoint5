@@ -1,10 +1,8 @@
 <template>
   <div class="col-12">
     <section class="row backImg" :style="`background-image: url(${profile.coverImg})`">
-      <div class="col-2">
-        send to profile side bar thing
-      </div>
-      <div class=" col-8 d-flex">
+
+      <div class=" col-10 d-flex p-5">
         <div class="">
 
           <img :src="profile.picture" alt="" class="rounded-circle img-smaller">
@@ -12,9 +10,9 @@
           </div>
           <div class=" text-end">
             <h2>
-              <a :href="profile.email" class="mdi mdi-email"></a>
-              <a :href="profile.github" class="mdi mdi-github"></a>
-              <a :href="profile.linkedin" class="mdi mdi-linkedin"></a>
+              <a v-if="profile.email" :href="profile.email" class="mdi mdi-email"></a>
+              <a v-if="profile.github" :href="profile.github" class="mdi mdi-github"></a>
+              <a v-if="profile.linkedin" :href="profile.linkedin" class="mdi mdi-linkedin"></a>
 
               <a v-if="profile.resume" :href="profile.resume" class="mdi mdi-information"></a>
 
@@ -29,7 +27,7 @@
         </div>
       </div>
       <div class="col-2">
-        send to adds card
+        <AddsCard />
       </div>
     </section>
     <section class="row">
@@ -53,6 +51,7 @@ import Pop from "../utils/Pop";
 import { profileService } from '../services/ProfileService.js'
 import { useRoute } from "vue-router";
 import { postsService } from "../services/PostsService";
+import AddsCard from "../components/AddsCard.vue";
 export default {
   setup() {
     const route = useRoute();
@@ -86,7 +85,7 @@ export default {
       profile: computed(() => AppState.activeProfile)
     }
   },
-  components: { PostCard }
+  components: { PostCard, AddsCard }
 };
 </script>
 

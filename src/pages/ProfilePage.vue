@@ -30,15 +30,24 @@
         <AddsCard />
       </div>
     </section>
-    <section class="row">
-      <div>
+    <div class="container-fluid">
 
-        <div v-for="p in posts" class="col-8 d-flex justify-content-center">
-          <PostCard :post="p" />
+      <section class="row">
+        <div>
+
+          <div v-for="p in posts" class=" d-flex justify-content-center">
+            <PostCard :post="p" />
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
   </div>
+  <section class="row">
+
+    <div class="col-6 btn btn-info" v-if="(page > 1)" @click="changeProfilePage(page - 1)">previous</div>
+    <div class="col-6 btn btn-info" @click="changeProfilePage(page + 1)">next</div>
+
+  </section>
 </template>
 
 
@@ -82,7 +91,17 @@ export default {
 
     return {
       posts: computed(() => AppState.posts),
-      profile: computed(() => AppState.activeProfile)
+      profile: computed(() => AppState.activeProfile),
+      page: computed(() => AppState.profilePage),
+      async changeProfilePage(page) {
+        try {
+          await postsService.changeProfilePage(route.params.profileId, page)
+
+        } catch (error) {
+          logger.log(error)
+          Pop.error('no more pages')
+        }
+      }
     }
   },
   components: { PostCard, AddsCard }

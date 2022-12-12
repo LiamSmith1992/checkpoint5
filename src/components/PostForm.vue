@@ -4,6 +4,7 @@
     <div class="me-5">
       <form @submit.prevent="createPost()" class="card">
 
+
         <div class="mb-2 p-2">
           <label for="postBody" class="form-label">New Post</label>
           <textarea v-model="editable.body" class="form-control" id="postBody" rows="3"
@@ -16,6 +17,7 @@
         <button class="btn btn-info">Post</button>
       </form>
     </div>
+
   </section>
 
 </template>
@@ -27,8 +29,10 @@ import { computed, reactive, onMounted, ref } from 'vue';
 import { logger } from "../utils/Logger";
 import Pop from "../utils/Pop";
 import { postsService } from "../services/PostsService";
+import { useRouter } from "vue-router";
 export default {
   setup() {
+
     const editable = ref({})
 
     async function createPost() {

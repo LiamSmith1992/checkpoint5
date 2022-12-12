@@ -1,8 +1,8 @@
 
 <template>
 
-  <section class="row">
-    <div class="col-12 card">
+  <section class="col-12 p-2">
+    <div class=" card">
       <div class="d-flex p-2">
         <router-link :to="{ name: 'Profile', params: { profileId: post.creatorId } }">
           <img :src="post.creator.picture" :alt="post.creator.name" class="img-fluid img-smaller rounded-circle ">
@@ -32,6 +32,7 @@
         </span>
       </div>
     </div>
+
   </section>
 </template>
 
@@ -44,6 +45,7 @@ import { Post } from '../models/Post.js';
 import { logger } from "../utils/Logger";
 import Pop from "../utils/Pop";
 import { postsService } from "../services/PostsService";
+import AddsCard from "./AddsCard.vue";
 export default {
   props: {
     post: {
@@ -52,32 +54,31 @@ export default {
     }
   },
   setup(props) {
-    const route = useRoute()
-
-
-
-
+    const route = useRoute();
     return {
       route,
       account: computed(() => AppState.account),
       async removePost() {
         try {
-          await postsService.removePost(props.post.id)
-        } catch (error) {
-          logger.error(error)
-          Pop.error(error)
+          await postsService.removePost(props.post.id);
+        }
+        catch (error) {
+          logger.error(error);
+          Pop.error(error);
         }
       },
       async likePost(postId) {
         try {
-          await postsService.likePost(postId)
-        } catch (error) {
-          logger.log(error)
-          Pop.error('must be logged in', error)
+          await postsService.likePost(postId);
+        }
+        catch (error) {
+          logger.log(error);
+          Pop.error("must be logged in", error);
         }
       }
-    }
-  }
+    };
+  },
+  components: { AddsCard }
 };
 </script>
 

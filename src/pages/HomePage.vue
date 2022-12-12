@@ -1,11 +1,9 @@
 <template>
   <div class="container-fluid">
     <section class="row">
-      <div class="col-2">
-        this is side profile
-      </div>
 
-      <div class="col-8">
+
+      <div class="col-10">
         <PostForm />
         <section v-for="p in posts" class="row">
           <PostCard :post="p" />
@@ -18,6 +16,12 @@
         <AddsCard />
         <!-- </section> -->
       </div>
+    </section>
+    <section class="row">
+
+      <div class="col-6 btn btn-info" v-if="(page > 1)" @click="changePage(page - 1)">previous</div>
+      <div class="col-6 btn btn-info" @click="changePage(page + 1)">next</div>
+
     </section>
   </div>
 </template>
@@ -52,7 +56,16 @@ export default {
 
     return {
       posts: computed(() => AppState.posts),
-      page: computed(() => AppState.page)
+      page: computed(() => AppState.page),
+      async changePage(page) {
+        try {
+          await postsService.changePage(page)
+
+        } catch (error) {
+          logger.log(error)
+          Pop.error(error.message)
+        }
+      }
     }
   },
   // FIXME will need  to but this back in when v-for to card

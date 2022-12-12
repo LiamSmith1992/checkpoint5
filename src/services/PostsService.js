@@ -14,7 +14,7 @@ class PostsService {
   }
 
   async searchForPost(query = '') {
-    debugger
+
     AppState.query = query
     const res = await api.get(`api/posts?query=${query}`)
     logger.log('this is query search', res.data)
@@ -34,6 +34,7 @@ class PostsService {
     const res = await api.get('api/profiles/' + profileId + '/posts')
     logger.log('this is posts by id', res.data)
     AppState.posts = res.data.posts
+    logger.log('posts by id', AppState.posts)
 
   }
 
@@ -46,11 +47,23 @@ class PostsService {
 
   async likePost(postId) {
     const res = await api.post('api/posts/' + postId + '/like')
-    logger.log('liking', res.data)
-    this.getPosts(AppState.posts)
+    logger.log('liking', AppState.posts)
 
   }
 
+  async changePage(page) {
+    const res = await api.get('api/posts?page=' + page)
+    logger.log('page changer', res.data)
+    AppState.posts = res.data.posts
+    AppState.page = page
+  }
+
+  async changeProfilePage(id, page) {
+    const res = await api.get('api/posts?creatorId=' + id + '&page=' + page)
+    logger.log('changing page on profile', res.data)
+    AppState.posts = res.data.posts
+    AppState.profilePage = page
+  }
 }
 
 

@@ -26,7 +26,8 @@ class PostsService {
     logger.log('this is before unshift', AppState.posts)
     const res = await api.post('api/posts', body)
     Pop.toast('Made a post', 'success')
-    this.getPosts()
+    AppState.posts.unshift(res.data)
+
 
   }
 
@@ -47,8 +48,13 @@ class PostsService {
 
   async likePost(postId) {
     const res = await api.post('api/posts/' + postId + '/like')
-    logger.log('liking', AppState.posts)
+    logger.log('liking', res.data)
 
+
+    logger.log('app state after likes', AppState.posts)
+    if (AppState.page == 1) {
+      this.getPosts(AppState.posts)
+    } else { Pop.toast('like was processed.. trust me', 'success') }
   }
 
   async changePage(page) {

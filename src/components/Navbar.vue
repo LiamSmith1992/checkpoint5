@@ -13,15 +13,12 @@
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav me-auto">
         <li>
-          <router-link :to="{ name: 'About' }" class="btn text-success lighten-30 selectable text-uppercase">
-            About
-          </router-link>
 
         </li>
       </ul>
       <!-- LOGIN COMPONENT HERE -->
       <form action="" @submit.prevent="searchForPost">
-        <input type="text" class="" v-model="search">
+        <input type="text" class="" v-model="search" placeholder="Must be on home page">
         <button class="me-2 btn btn-info">Search</button>
       </form>
       <Login />

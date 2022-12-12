@@ -61,6 +61,7 @@ export default {
       postLikes: computed(() => AppState.posts),
       route,
       account: computed(() => AppState.account),
+      page: computed(() => AppState.page),
 
       async removePost() {
         try {

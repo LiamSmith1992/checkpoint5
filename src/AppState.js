@@ -20,5 +20,7 @@ export const AppState = reactive({
 
   profilePage: 1,
 
+  likes: 0
+
 
 })

@@ -47,14 +47,30 @@ class PostsService {
   }
 
   async likePost(postId) {
+    debugger
+    const checkLikes = AppState.posts.find(p => p.id == postId)
+    AppState.likes = checkLikes.likes.length
+    // logger.log('this is appstated.likes', AppState.likes)
+    // logger.log('this is checking likes', checkLikes)
     const res = await api.post('api/posts/' + postId + '/like')
+    AppState.posts.push(res.data)
     logger.log('liking', res.data)
+    const likes = AppState.posts.find(p => p.id == postId)
+
+    logger.log('this is just likes lenght', likes.likes.length)
+    if (AppState.likes > res.data.likes.length) {
+      likes.likes.length--
+    } else {
+      likes.likes.length++
+
+    }
 
 
-    logger.log('app state after likes', AppState.posts)
-    if (AppState.page == 1) {
-      this.getPosts(AppState.posts)
-    } else { Pop.toast('like was processed.. trust me', 'success') }
+
+    logger.log('this is likes!!!', likes)
+
+    logger.log('app state after likes', res.data)
+    Pop.toast('like was processed.. trust me', 'success')
   }
 
   async changePage(page) {

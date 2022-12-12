@@ -23,9 +23,10 @@
       <div class="p-3">
         {{ post.body }}
       </div>
-      <img :src="post.imgUrl" :alt="post.imgUrl" class="img-fluid post-img ">
+      <img :src="post.imgUrl" :alt="post.name" class="img-fluid post-img ">
       <div>
         {{ post.likes.length }}
+
         <span>
           Likes
           <i @click="likePost(post.id)" class="selectable ">👍</i>
@@ -53,11 +54,14 @@ export default {
       required: true
     }
   },
-  setup(props) {
+  setup(props, { emit }) {
     const route = useRoute();
     return {
+
+      postLikes: computed(() => AppState.posts),
       route,
       account: computed(() => AppState.account),
+
       async removePost() {
         try {
           await postsService.removePost(props.post.id);
@@ -69,7 +73,9 @@ export default {
       },
       async likePost(postId) {
         try {
+
           await postsService.likePost(postId);
+          emit('postLiked')
         }
         catch (error) {
           logger.log(error);

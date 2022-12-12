@@ -10,7 +10,7 @@
           </div>
           <div class=" text-end">
             <h2>
-              <a v-if="profile.email" :href="profile.email" class="mdi mdi-email"></a>
+
               <a v-if="profile.github" :href="profile.github" class="mdi mdi-github"></a>
               <a v-if="profile.linkedin" :href="profile.linkedin" class="mdi mdi-linkedin"></a>
 

@@ -47,7 +47,7 @@ class PostsService {
   }
 
   async likePost(postId) {
-    debugger
+
     const checkLikes = AppState.posts.find(p => p.id == postId)
     AppState.likes = checkLikes.likes.length
     // logger.log('this is appstated.likes', AppState.likes)

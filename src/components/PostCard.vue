@@ -23,7 +23,7 @@
       <div class="p-3">
         {{ post.body }}
       </div>
-      <img :src="post.imgUrl" :alt="post.name" class="img-fluid post-img ">
+      <img v-if="post.imgUrl" :src="post.imgUrl" :alt="post.name" class="img-fluid post-img ">
       <div>
         {{ post.likes.length }}
 
